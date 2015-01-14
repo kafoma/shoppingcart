@@ -24,8 +24,8 @@ class Cart {
 
   public function getItem($itemId) {
     if (isset($this->cartLines[$itemId])) {
-      $itemLine = $this->cartLines[$itemId];
-      return $itemLine->getItem();
+      $cartLine = $this->cartLines[$itemId];
+      return $cartLine->getItem();
     }
     throw new CartException("The item doesn't exists in cart");
   }
@@ -50,6 +50,10 @@ class Cart {
       $result += $itemInCart->getAmount();
     }
     return $result;
+  }
+
+  public function getIterator() {
+    return new \ArrayObject($this->cartLines);
   }
 
 }

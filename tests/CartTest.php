@@ -1,7 +1,6 @@
 <?php
 
 use malotor\shoppingcart\domain\Cart;
-use malotor\shoppingcart\domain\CartException;
 
 class CartTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
@@ -58,14 +57,10 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $newItem = $cart->getItem(1);
   }
 
-
   public function testCart_WhenAddExistingItem_QuantityMustBe1() {
-
     $cart = new Cart();
     $cart->addItem($this->item);
     $this->assertEquals(1,$cart->getItemQuantity($this->item->getId()));
-
-
   }
 
   public function testCart_WhenAddExistingItem_IncreaseQuantity() {
@@ -75,15 +70,27 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(2,$cart->getItemQuantity($this->item->getId()));
   }
 
-  public function testCart_WhenGetTotalAmunt_IncreaseQuantity() {
+  public function testCart_TotalAmountIsSumOfTheirItems() {
     $cart = new Cart();
     $cart->addItem($this->item);
-
     $this->assertEquals(10,$cart->getTotalAmount());
-
-
     $cart->addItem($this->item);
-
     $this->assertEquals(20,$cart->getTotalAmount());
+    $cart->addItem($this->other_item);
+    $this->assertEquals(41.3,$cart->getTotalAmount());
   }
+
+  public function testCart_getIterator() {
+    $cart = new Cart();
+
+    $cartIterator = $cart->getIterator();
+
+    while ($cartIterator->valid()) {
+
+    }
+    foreach($cartIterator as $cartLine) {
+
+    }
+  }
+
 }
