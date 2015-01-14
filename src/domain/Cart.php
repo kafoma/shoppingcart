@@ -10,7 +10,7 @@ class Cart {
     return count($this->items);
   }
 
-  public function addItem($item) {
+  public function addItem(Item $item) {
     if (!$this->isItemInCart($item)) $this->items[$item->getId()] = CartLine::create($item,1);
     else {
       $itemLine = $this->items[$item->getId()];
@@ -35,7 +35,7 @@ class Cart {
     return $itemLine->getQuantity();
   }
 
-  private function isItemInCart($item) {
+  private function isItemInCart(Item $item) {
     foreach($this->items as $itemInCart) {
       if ($itemInCart->getItem()->getId() == $item->getId()) {
         return true;
@@ -47,7 +47,7 @@ class Cart {
   public function getTotalAmount() {
     $result = 0;
     foreach($this->items as $itemInCart) {
-      $result += ( $itemInCart->getItem()->getPrice() ) * ( $itemInCart->getQuantity() );
+      $result += $itemInCart->getAmount();
     }
     return $result;
   }
