@@ -9,18 +9,18 @@
 namespace malotor\shoppingcart\domain;
 
 class Cart {
-  private $counter = 0;
+
   private $items = [];
 
   public function countItem() {
-    return $this->counter;
+    return count($this->items);
   }
   public function addItem($item) {
     $this->items[$item->getId()] = $item;
-    return $this->counter++;
+
   }
   public function removeItem($itemId) {
-    return $this->counter--;
+    unset($this->items[$itemId]);
   }
 
   public function getItem($itemId) {
