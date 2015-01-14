@@ -11,7 +11,7 @@ class Cart {
   }
 
   public function addItem(Item $item) {
-    if (!$this->isItemInCart($item)) $this->cartLines[$item->getId()] = CartLine::create($item,1);
+    if (!$this->contains($item)) $this->cartLines[$item->getId()] = CartLine::create($item,1);
     else {
       $itemLine = $this->cartLines[$item->getId()];
       $itemLine->increaseQuantity(1);
@@ -29,14 +29,13 @@ class Cart {
     }
     throw new CartException("The item doesn't exists in cart");
   }
-
   public function getItemQuantity($itemId) {
     $itemLine = $this->cartLines[$itemId];
     return $itemLine->getQuantity();
   }
 
-  private function isItemInCart(Item $item) {
-    foreach($this->cartLines as $itemInCart) {
+  private function contains(Item $item) {
+    foreach($this->getIterator() as $itemInCart) {
       if ($itemInCart->getItem()->getId() == $item->getId()) {
         return true;
       }

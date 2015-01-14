@@ -82,14 +82,13 @@ class CartTest extends PHPUnit_Framework_TestCase {
 
   public function testCart_getIterator() {
     $cart = new Cart();
-
+    $cart->addItem($this->item);
+    $cart->addItem($this->item);
+    $cart->addItem($this->other_item);
     $cartIterator = $cart->getIterator();
 
-    while ($cartIterator->valid()) {
-
-    }
     foreach($cartIterator as $cartLine) {
-
+      $this->assertInstanceOf('malotor\shoppingcart\domain\CartLine', $cartLine);
     }
   }
 
