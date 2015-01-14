@@ -17,31 +17,37 @@ class Cart {
   }
   public function addItem($item) {
 
-    $itemLine = [
-      'item' => $item,
-      'quantity' => 1
-    ];
-
+    $itemLineObject = new CartLine($item,1);
     $exists = false;
     foreach($this->items as $itemInCart) {
-      if ($itemInCart['item']->getId() == $item->getId()) {
+      if ($itemInCart->getItem()->getId() == $item->getId()) {
         $exists = true;
       }
     }
 
-    if (!$exists) $this->items[$item->getId()] = $itemLine;
-    else $this->items[$item->getId()]['quantity']++;
+    if (!$exists) $this->items[$item->getId()] = $itemLineObject;
+    else {
+      $itemLine = $this->items[$item->getId()];
+      $itemLine->increaseQuantity(1);
+    }
   }
   public function removeItem($itemId) {
     unset($this->items[$itemId]);
   }
 
   public function getItem($itemId) {
-    if (isset($this->items[$itemId])) return $this->items[$itemId]['item'];
+    if (isset($this->items[$itemId])) {
+      $itemLine = $this->items[$itemId];
+      return $itemLine->getItem();
+    }
     throw new CartException("The item doesn't exists in cart");
   }
 
   public function getItemQuantity($itemId) {
-    return $this->items[$itemId]['quantity'];
+    $itemLine = $this->items[$itemId];
+    return $itemLine->getQuantity();
   }
+
+
+
 }
