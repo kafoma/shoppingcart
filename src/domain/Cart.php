@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: manel
- * Date: 14/01/15
- * Time: 12:52
- */
 
 namespace malotor\shoppingcart\domain;
 
@@ -15,6 +9,7 @@ class Cart {
   public function countItem() {
     return count($this->items);
   }
+
   public function addItem($item) {
     if (!$this->isItemInCart($item)) $this->items[$item->getId()] = CartLine::create($item,1);
     else {
@@ -22,6 +17,7 @@ class Cart {
       $itemLine->increaseQuantity(1);
     }
   }
+
   public function removeItem($itemId) {
     unset($this->items[$itemId]);
   }
@@ -46,6 +42,14 @@ class Cart {
       }
     }
     return false;
+  }
+
+  public function getTotalAmount() {
+    $result = 0;
+    foreach($this->items as $itemInCart) {
+      $result += ( $itemInCart->getItem()->getPrice() ) * ( $itemInCart->getQuantity() );
+    }
+    return $result;
   }
 
 }

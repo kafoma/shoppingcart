@@ -52,7 +52,6 @@ class CartLine {
     $this->quantity += $amount;
   }
 
-
   static public function create($item,$quantity = 1) {
     return new static($item,$quantity);
   }

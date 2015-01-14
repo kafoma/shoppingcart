@@ -11,4 +11,5 @@ namespace malotor\shoppingcart\domain;
 
 interface Item {
   public function getId();
+  public function getPrice();
 }

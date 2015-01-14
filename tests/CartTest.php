@@ -9,11 +9,15 @@ class CartTest extends PHPUnit_Framework_TestCase {
       ->getMock();
     $this->item->method('getId')
       ->willReturn(1);
+    $this->item->method('getPrice')
+      ->willReturn(10);
 
     $this->other_item = $this->getMockBuilder('malotor\shoppingcart\domain\Item')
       ->getMock();
     $this->other_item->method('getId')
       ->willReturn(2);
+    $this->other_item->method('getPrice')
+      ->willReturn(21.3);
   }
   // [UnitOfWork_StateUnderTest_ExpectedBehavior]
   public function testCart_WhenCreated_Have0items() {
@@ -71,4 +75,15 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(2,$cart->getItemQuantity($this->item->getId()));
   }
 
+  public function testCart_WhenGetTotalAmunt_IncreaseQuantity() {
+    $cart = new Cart();
+    $cart->addItem($this->item);
+
+    $this->assertEquals(10,$cart->getTotalAmount());
+
+
+    $cart->addItem($this->item);
+
+    $this->assertEquals(20,$cart->getTotalAmount());
+  }
 }
