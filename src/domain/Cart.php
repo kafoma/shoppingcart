@@ -16,9 +16,7 @@ class Cart {
     return count($this->items);
   }
   public function addItem($item) {
-    $exists = $this->isItemInCart($item);
-
-    if (!$exists) $this->items[$item->getId()] = new CartLine($item,1);
+    if (!$this->isItemInCart($item)) $this->items[$item->getId()] = CartLine::create($item,1);
     else {
       $itemLine = $this->items[$item->getId()];
       $itemLine->increaseQuantity(1);
@@ -41,7 +39,7 @@ class Cart {
     return $itemLine->getQuantity();
   }
 
-  protected function isItemInCart($item) {
+  private function isItemInCart($item) {
     foreach($this->items as $itemInCart) {
       if ($itemInCart->getItem()->getId() == $item->getId()) {
         return true;
@@ -49,6 +47,5 @@ class Cart {
     }
     return false;
   }
-
 
 }
