@@ -17,13 +17,13 @@ class Cart {
   }
   public function addItem($item) {
     $this->items[$item->getId()] = $item;
-
   }
   public function removeItem($itemId) {
     unset($this->items[$itemId]);
   }
 
   public function getItem($itemId) {
-    return $this->items[$itemId];
+    if (isset($this->items[$itemId])) return $this->items[$itemId];
+    throw new CartException("The item doesn't exists in cart");
   }
 }
