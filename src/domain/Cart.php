@@ -4,39 +4,39 @@ namespace malotor\shoppingcart\domain;
 
 class Cart {
 
-  private $items = [];
+  private $cartLines = [];
 
   public function countItem() {
-    return count($this->items);
+    return count($this->cartLines);
   }
 
   public function addItem(Item $item) {
-    if (!$this->isItemInCart($item)) $this->items[$item->getId()] = CartLine::create($item,1);
+    if (!$this->isItemInCart($item)) $this->cartLines[$item->getId()] = CartLine::create($item,1);
     else {
-      $itemLine = $this->items[$item->getId()];
+      $itemLine = $this->cartLines[$item->getId()];
       $itemLine->increaseQuantity(1);
     }
   }
 
   public function removeItem($itemId) {
-    unset($this->items[$itemId]);
+    unset($this->cartLines[$itemId]);
   }
 
   public function getItem($itemId) {
-    if (isset($this->items[$itemId])) {
-      $itemLine = $this->items[$itemId];
+    if (isset($this->cartLines[$itemId])) {
+      $itemLine = $this->cartLines[$itemId];
       return $itemLine->getItem();
     }
     throw new CartException("The item doesn't exists in cart");
   }
 
   public function getItemQuantity($itemId) {
-    $itemLine = $this->items[$itemId];
+    $itemLine = $this->cartLines[$itemId];
     return $itemLine->getQuantity();
   }
 
   private function isItemInCart(Item $item) {
-    foreach($this->items as $itemInCart) {
+    foreach($this->cartLines as $itemInCart) {
       if ($itemInCart->getItem()->getId() == $item->getId()) {
         return true;
       }
@@ -46,7 +46,7 @@ class Cart {
 
   public function getTotalAmount() {
     $result = 0;
-    foreach($this->items as $itemInCart) {
+    foreach($this->cartLines as $itemInCart) {
       $result += $itemInCart->getAmount();
     }
     return $result;
