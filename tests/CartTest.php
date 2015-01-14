@@ -54,12 +54,21 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $newItem = $cart->getItem(1);
   }
 
-  /*
-  public function testIncreaseQuantityForAItemInACart() {
+
+  public function testCart_WhenAddExistingItem_QuantityMustBe1() {
 
     $cart = new Cart();
     $cart->addItem($this->item);
-    $cart->addItem($this->item)
+    $this->assertEquals(1,$cart->getItemQuantity($this->item->getId()));
+
+
   }
-  */
+
+  public function testCart_WhenAddExistingItem_IncreaseQuantity() {
+    $cart = new Cart();
+    $cart->addItem($this->item);
+    $cart->addItem($this->item);
+    $this->assertEquals(2,$cart->getItemQuantity($this->item->getId()));
+  }
+
 }
