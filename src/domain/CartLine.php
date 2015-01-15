@@ -6,7 +6,7 @@
  * Time: 14:52
  */
 
-namespace malotor\shoppingcart\domain;
+namespace malotor\shoppingcart\Domain;
 
 
 class CartLine {

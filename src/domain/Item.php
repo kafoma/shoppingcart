@@ -6,7 +6,7 @@
  * Time: 13:01
  */
 
-namespace malotor\shoppingcart\domain;
+namespace malotor\shoppingcart\Domain;
 
 
 interface Item {

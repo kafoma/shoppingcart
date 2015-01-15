@@ -1,6 +1,6 @@
 <?php
 
-namespace malotor\shoppingcart\domain;
+namespace malotor\shoppingcart\Domain;
 
 class Cart {
 
