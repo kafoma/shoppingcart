@@ -31,4 +31,17 @@ class Ecommerce {
     $cart = $this->cartRepository->get();
     return $cart->getIterator();
   }
+
+  public function getCartTotalAmunt() {
+    $cart = $this->cartRepository->get();
+    return $cart->getTotalAmount();
+  }
+
+  /*
+   * @todo remove
+   * @deprecated compatibility with drupal 8
+   */
+  public function getCart() {
+    return $this->cartRepository->get();
+  }
 }
