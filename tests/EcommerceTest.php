@@ -54,6 +54,24 @@ class EcommerceTest extends PHPUnit_Framework_TestCase {
 
   }
 
+  public function testGetCart() {
+
+    $productID = 1;
+
+    $this->productRepositoryMockup->expects($this->once())
+      ->method('get')
+      ->with($this->equalTo($productID));
+
+    $this->cartMockup->expects($this->once())
+      ->method('addItem');
+
+    $this->cartRepositoryMockup->expects($this->once())
+      ->method('save')
+      ->with($this->equalTo($this->cartMockup));
+
+    $this->ecommerceManager->addProductToCart($productID);
+
+  }
 
 
 }

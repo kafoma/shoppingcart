@@ -5,7 +5,7 @@ namespace malotor\shoppingcart\Ports;
 interface CartRepositoryInterface {
 
   /**
-   * @return malotor\ecommerce\Cart
+   * @return malotor\shoppingcart\Cart
    **/
   function get();
 
