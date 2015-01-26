@@ -10,8 +10,8 @@ class Cart {
     return count($this->cartLines);
   }
 
-  public function addItem(Item $item) {
-    if (!$this->contains($item)) $this->cartLines[$item->getId()] = CartLine::create($item,1);
+  public function addItem(Item $item,$quantity = 1) {
+    if (!$this->contains($item)) $this->cartLines[$item->getId()] = CartLine::create($item,$quantity);
     else {
       $itemLine = $this->cartLines[$item->getId()];
       $itemLine->increaseQuantity(1);
