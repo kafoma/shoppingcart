@@ -2,7 +2,7 @@
 
 namespace malotor\shoppingcart\Application;
 
-interface ProductRepositoryInterface {
+interface ItemRepositoryInterface {
 
   /**
    * @return malotor\shoppingcart\Item

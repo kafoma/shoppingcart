@@ -27,7 +27,7 @@ class EcommerceTest extends PHPUnit_Framework_TestCase {
       ->willReturn(120);
 
 
-    $this->productRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Ports\ProductRepositoryInterface')
+    $this->productRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Application\ItemRepositoryInterface')
       ->getMock();
     $this->productRepositoryMockup->method('get')
       ->willReturn($item);
