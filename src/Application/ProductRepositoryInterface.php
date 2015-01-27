@@ -1,6 +1,6 @@
 <?php
 
-namespace malotor\shoppingcart\Ports;
+namespace malotor\shoppingcart\Application;
 
 interface ProductRepositoryInterface {
 

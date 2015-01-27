@@ -2,8 +2,8 @@
 
 namespace malotor\shoppingcart\Application;
 
-use malotor\shoppingcart\Ports\CartLineRepositoryInterface;
-use malotor\shoppingcart\Ports\ProductRepositoryInterface;
+use malotor\shoppingcart\Application\CartLineRepositoryInterface;
+use malotor\shoppingcart\Application\ProductRepositoryInterface;
 use malotor\shoppingcart\Domain\Cart;
 
 class Ecommerce {
@@ -21,7 +21,6 @@ class Ecommerce {
 
     $shoppingCart = $this->getCart();
     $shoppingCart->addItem($product);
-
     $this->saveCart($shoppingCart);
   }
 
@@ -56,7 +55,9 @@ class Ecommerce {
 
   protected function saveCart($cart) {
 
-    foreach($cart->getIterator as $cartLine) {
+    $this->cartLineRepository->removeAll();
+
+    foreach($cart->getIterator() as $cartLine) {
       $this->cartLineRepository->save($cartLine);
     }
 

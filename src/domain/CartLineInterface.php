@@ -9,25 +9,11 @@
 namespace malotor\shoppingcart\Domain;
 
 
-interface CartLineInteface {
+interface CartLineInterface {
 
-  public function setItem($item);
-  /**
-   * @return malotor\shoppingcart\Item
-   */
   public function getItem();
-  /**
-   * @param integer
-   */
-  public function setQuantity($quantity);
-  /**
-   * @return integer
-   */
+
   public function getQuantity();
-  static public function create($item,$quantity = 1);
-  /**
-   * @return double
-   */
-  public function getAmount();
+
 
 }

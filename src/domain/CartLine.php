@@ -9,7 +9,7 @@
 namespace malotor\shoppingcart\Domain;
 
 
-class CartLine {
+class CartLine implements CartLineInterface {
   private $item;
   private $quantity;
   public function __construct($item,$quantity = 1) {
