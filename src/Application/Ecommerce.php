@@ -3,14 +3,14 @@
 namespace malotor\shoppingcart\Application;
 
 use malotor\shoppingcart\Application\CartLineRepositoryInterface;
-use malotor\shoppingcart\Application\ProductRepositoryInterface;
+use malotor\shoppingcart\Application\ItemRepositoryInterface;
 use malotor\shoppingcart\Domain\Cart;
 
 class Ecommerce {
   protected $productRepository;
   protected $cartRepository;
 
-  public function __construct(ProductRepositoryInterface $productRepository, CartLineRepositoryInterface $cartLineRepository) {
+  public function __construct(ItemRepositoryInterface $productRepository, CartLineRepositoryInterface $cartLineRepository) {
     $this->productRepository = $productRepository;
     $this->cartLineRepository = $cartLineRepository;
   }
@@ -45,7 +45,7 @@ class Ecommerce {
     $carLines = $this->cartLineRepository->getAll();
     $cart = new Cart();
     foreach ($carLines as $carLine) {
-      $cart->addItem($carLine->getItem(),$carLine->getQuantity());
+      $cart->addItem($carLine);
     }
     return $cart;
   }
