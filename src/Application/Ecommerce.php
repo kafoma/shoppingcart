@@ -15,12 +15,12 @@ class Ecommerce {
     $this->cartLineRepository = $cartLineRepository;
   }
 
-  public function addProductToCart($productId) {
+  public function addProductToCart($productId,$quantity=1) {
 
     $product = $this->productRepository->get($productId);
-
     $shoppingCart = $this->getCart();
-    $shoppingCart->addItem($product);
+    $lineCart = CartLineFactory::create($product,$quantity);
+    $shoppingCart->addItem($lineCart);
     $this->saveCart($shoppingCart);
   }
 
@@ -43,23 +43,17 @@ class Ecommerce {
 
   protected function getCart() {
     $carLines = $this->cartLineRepository->getAll();
-
     $cart = new Cart();
-
     foreach ($carLines as $carLine) {
       $cart->addItem($carLine->getItem(),$carLine->getQuantity());
     }
-
     return $cart;
   }
 
   protected function saveCart($cart) {
-
     $this->cartLineRepository->removeAll();
-
     foreach($cart->getIterator() as $cartLine) {
       $this->cartLineRepository->save($cartLine);
     }
-
   }
 }
