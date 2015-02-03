@@ -2,22 +2,19 @@
 
 namespace malotor\shoppingcart\Application;
 
-use malotor\shoppingcart\Application\CartLineRepositoryInterface;
-use malotor\shoppingcart\Application\ItemRepositoryInterface;
 use malotor\shoppingcart\Domain\Cart;
 
 class Ecommerce {
-  protected $productRepository;
-  protected $cartRepository;
+  private $itemRepository;
+  private $cartRepository;
 
-  public function __construct(ItemRepositoryInterface $productRepository, CartLineRepositoryInterface $cartLineRepository) {
-    $this->productRepository = $productRepository;
+  public function __construct(ItemRepositoryInterface $itemRepository, CartLineRepositoryInterface $cartLineRepository) {
+    $this->itemRepository = $itemRepository;
     $this->cartLineRepository = $cartLineRepository;
   }
 
   public function addProductToCart($productId,$quantity=1) {
-
-    $product = $this->productRepository->get($productId);
+    $product = $this->itemRepository->get($productId);
     $shoppingCart = $this->getCart();
     $lineCart = CartLineFactory::create($product,$quantity);
     $shoppingCart->addItem($lineCart);
