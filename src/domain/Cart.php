@@ -38,7 +38,7 @@ class Cart {
     return $itemLine->getQuantity();
   }
 
-  private function contains(Item $item) {
+  private function contains(ItemInterface $item) {
     foreach($this->getIterator() as $itemInCart) {
       if ($itemInCart->getItem()->getId() == $item->getId()) {
         return true;

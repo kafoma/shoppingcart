@@ -4,7 +4,7 @@ namespace malotor\shoppingcart\Application;
 
 class ItemFactory {
 
-  public static function createProduct($itemName,$itemRef,$itemDescription,$itemPrice) {
+  public static function create($itemName,$itemRef,$itemDescription,$itemPrice) {
     $item = new Item();
 
     $item->setName($itemName)
