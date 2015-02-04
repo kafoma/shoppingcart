@@ -6,7 +6,7 @@ use malotor\shoppingcart\Domain\Item;
 
 class ItemFactory {
 
-  public static function create($itemName,$itemRef,$itemDescription,$itemPrice) {
+  public static function create($itemId, $itemName,$itemRef,$itemDescription,$itemPrice) {
     $item = new Item();
 
     $item->setId($itemId)
