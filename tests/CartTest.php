@@ -5,14 +5,14 @@ use malotor\shoppingcart\Application\CartLineFactory;
 
 class CartTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
-    $this->item = $this->getMockBuilder('malotor\shoppingcart\domain\Item')
+    $this->item = $this->getMockBuilder('malotor\shoppingcart\Domain\ItemInterface')
       ->getMock();
     $this->item->method('getId')
       ->willReturn(1);
     $this->item->method('getPrice')
       ->willReturn(10);
 
-    $this->other_item = $this->getMockBuilder('malotor\shoppingcart\domain\Item')
+    $this->other_item = $this->getMockBuilder('malotor\shoppingcart\Domain\ItemInterface')
       ->getMock();
     $this->other_item->method('getId')
       ->willReturn(2);
