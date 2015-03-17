@@ -15,7 +15,6 @@ class Cart implements \IteratorAggregate {
     return $this->cartLines->count();
   }
 
-
   public function addItem($item, $quantity = 1) {
     $cartLine = new CartLine($item, $quantity);
 

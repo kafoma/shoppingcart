@@ -14,8 +14,7 @@ class Ecommerce {
   public function addProductToCart($productId,$quantity=1) {
     $product = $this->itemRepository->get($productId);
     $shoppingCart = $this->cartRepository->get();
-    $lineCart = CartLineFactory::create($product,$quantity);
-    $shoppingCart->addItem($lineCart);
+    $shoppingCart->addItem($product,$quantity);
     $this->cartRepository->save($shoppingCart);
   }
 

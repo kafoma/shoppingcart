@@ -110,4 +110,10 @@ class CartTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  public function testCart_WhenAddMoraThan1Item() {
+    $cart = new Cart();
+    $cart->addItem($this->item, 3);
+    $this->assertEquals(3, $cart->getItemQuantity($this->item->getId()));
+  }
+
 }
