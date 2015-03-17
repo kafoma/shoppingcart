@@ -62,6 +62,7 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $newItem = $cart->getItem(1);
   }
 
+
   public function testCart_WhenAddExistingItem_QuantityMustBe1() {
     $cart = new Cart();
     $cart->addItem($this->lineCart);
@@ -73,6 +74,11 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $cart->addItem($this->lineCart);
     $cart->addItem($this->lineCart);
     $this->assertEquals(2,$cart->getItemQuantity($this->item->getId()));
+  }
+  public function testCart_TotalAmountOfEmptyCartShouldBeZero() {
+    $cart = new Cart();
+
+    $this->assertEquals(0,$cart->getTotalAmount());
   }
 
   public function testCart_TotalAmountIsSumOfTheirItems() {
@@ -90,9 +96,9 @@ class CartTest extends PHPUnit_Framework_TestCase {
     $cart->addItem($this->lineCart);
     $cart->addItem($this->lineCart);
     $cart->addItem($this->otherLineCart);
-    $cartIterator = $cart->getIterator();
+    //$cartIterator = $cart->getIterator();
 
-    foreach($cartIterator as $cartLine) {
+    foreach($cart as $cartLine) {
       $this->assertInstanceOf('malotor\shoppingcart\domain\CartLine', $cartLine);
     }
   }
