@@ -8,52 +8,45 @@ class Cart implements \IteratorAggregate {
 
 
   public function __construct($cartLines = []) {
-    $this->cartLines = $cartLines;
+    $this->cartLines = new Collection();
   }
-
 
   public function countItem() {
-    return count($this->cartLines);
+    return $this->cartLines->count();
   }
 
-  public function addItem( CartLineInterface $cartLine ) {
 
-    $item = $cartLine->getItem();
-    $quantity = $cartLine->getQuantity();
+  public function addItem($item, $quantity = 1) {
+    $cartLine = new CartLine($item, $quantity);
 
-    if (!$this->contains($item)) $this->cartLines[$item->getId()] = $cartLine;
-    else {
-      $itemLine = $this->cartLines[$item->getId()];
-      $itemLine->increaseQuantity($quantity);
-    }
+    if (!$this->cartLines->contains($item->getId()))
+      $this->cartLines->add($item->getId(), $cartLine);
+    else
+      $this->increaseItemQuantity($item->getId(), $quantity);
+  }
+
+  public function increaseItemQuantity($itemId, $quantity) {
+    $existentCartLine = $this->cartLines->get($itemId);
+    $existentCartLine->increaseQuantity($quantity);
   }
 
   public function removeItem($itemId) {
-    unset($this->cartLines[$itemId]);
+    $this->cartLines->remove($itemId);
   }
 
   public function getItem($itemId) {
-    if (!isset($this->cartLines[$itemId]))
+    if (!$this->cartLines->contains($itemId))
       throw new CartException("The item doesn't exists in cart");
-    $cartLine = $this->cartLines[$itemId];
+    $cartLine = $this->cartLines->get($itemId);
     return $cartLine->getItem();
   }
 
 
   public function getItemQuantity($itemId) {
-    $itemLine = $this->cartLines[$itemId];
-    return $itemLine->getQuantity();
+    $cartLine = $this->cartLines->get($itemId);
+    return $cartLine->getQuantity();
   }
 
-
-  private function contains(ItemInterface $item) {
-    foreach($this as $itemInCart) {
-      if ($itemInCart->getItem()->getId() == $item->getId()) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   public function getTotalAmount() {
     $result = 0;
