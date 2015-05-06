@@ -16,10 +16,7 @@ class CartRepository {
   }
   public function get() {
     $carLines = $this->cartLineRepository->getAll();
-    $cart = new Cart();
-    foreach ($carLines as $carLine) {
-      $cart->addItem($carLine);
-    }
+    $cart = new Cart(new Collection($carLines));
     return $cart;
   }
 

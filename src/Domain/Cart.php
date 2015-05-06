@@ -56,7 +56,7 @@ class Cart implements \IteratorAggregate {
   }
 
   public function getIterator() {
-    return new \ArrayObject($this->cartLines);
+    return $this->cartLines;
   }
 
 }
