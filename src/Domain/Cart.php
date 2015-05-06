@@ -7,8 +7,8 @@ class Cart implements \IteratorAggregate {
   private $cartLines = [];
 
 
-  public function __construct($cartLines = []) {
-    $this->cartLines = new Collection();
+  public function __construct(Collection $cartLines) {
+    $this->cartLines = $cartLines;
   }
 
   public function countItem() {
