@@ -1,8 +1,8 @@
 <?php
 
-namespace malotor\shoppingcart\Application;
+namespace malotor\shoppingcart\Application\Service;
 
-class Ecommerce {
+class ShoppingCartService {
   private $itemRepository;
   private $cartRepository;
 

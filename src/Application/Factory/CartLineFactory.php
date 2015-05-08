@@ -6,7 +6,7 @@
  * Time: 22:52
  */
 
-namespace malotor\shoppingcart\Application;
+namespace malotor\shoppingcart\Application\Factory;
 
 
 use malotor\shoppingcart\Domain\CartLine;

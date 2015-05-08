@@ -1,6 +1,6 @@
 <?php
 
-namespace malotor\shoppingcart\Application;
+namespace malotor\shoppingcart\Application\Repository;
 
 interface ItemRepositoryInterface {
 
