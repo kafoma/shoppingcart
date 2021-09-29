@@ -30,10 +30,8 @@ class Ecommerce {
     return $cart->getIterator();
   }
 
-  public function getCartTotalAmunt() {
+  public function getCartTotalAmount() {
     $cart = $this->cartRepository->get();
     return $cart->getTotalAmount();
   }
-
-
 }

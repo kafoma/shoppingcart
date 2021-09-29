@@ -1,12 +1,13 @@
 <?php
 
 use malotor\shoppingcart\Application\Ecommerce;
+use malotor\shoppingcart\Domain\Collection;
+use PHPUnit\Framework\TestCase;
 
-
-class EcommerceTest extends PHPUnit_Framework_TestCase {
+class EcommerceTest extends TestCase {
 
   protected $ecommerceManager;
-  protected $productRepositoryMockup;
+  protected $itemRepositoryMockup;
   protected $cartRepositoryMockup;
   protected $cartMockup;
   protected $cartLineRepositoryMockup;
@@ -28,55 +29,35 @@ class EcommerceTest extends PHPUnit_Framework_TestCase {
       ->willReturn(120);
 
 
-    $this->productRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Application\ItemRepositoryInterface')
+    $this->itemRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Application\ItemRepositoryInterface')
       ->getMock();
-    $this->productRepositoryMockup->method('get')
+    $this->itemRepositoryMockup->method('get')
       ->willReturn($this->item);
 
-    $this->cartMockup = $this->getMock('malotor\shoppingcart\Domain\Cart');
+    $this->cartMockup = $this->createMock('malotor\shoppingcart\Domain\Cart', array(), array(new Collection()));
 
-
-       $carLines[] = \malotor\shoppingcart\Application\CartLineFactory::create($item,2);
-       $carLines[] = \malotor\shoppingcart\Application\CartLineFactory::create($other_item,1);
+       $carLines[] = \malotor\shoppingcart\Application\CartLineFactory::create($this->item,2);
+       $carLines[] = \malotor\shoppingcart\Application\CartLineFactory::create($this->other_item,1);
 
 
        $this->cartLineRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Application\CartLineRepositoryInterface')
          ->getMock();
-       $this->cartLineRepositoryMockup->method('get')
+       $this->cartLineRepositoryMockup->method('getAll')
          ->willReturn($carLines);
 
-
-    $this->cartRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Application\CartRepository')
+    $this->cartRepositoryMockup = $this->createMock('malotor\shoppingcart\Application\CartRepository', array(), array($this->cartLineRepositoryMockup));
+    /*$this->cartRepositoryMockup = $this->getMockBuilder('malotor\shoppingcart\Application\CartRepository')
       ->disableOriginalConstructor()
-      ->getMock();
+      ->getMock();*/
     $this->cartRepositoryMockup->method('get')
       ->willReturn($this->cartMockup);
-    $this->ecommerceManager = new Ecommerce($this->productRepositoryMockup, $this->cartRepositoryMockup);
+    $this->ecommerceManager = new Ecommerce($this->itemRepositoryMockup, $this->cartLineRepositoryMockup);
   }
 
   public function testAddProductToCart() {
 
     $productID = 1;
-
-    /*
-    $this->productRepositoryMockup->expects($this->once())
-      ->method('get')
-      ->with($this->equalTo($productID));
-    */
-
-    $this->cartMockup->expects($this->once())
-      ->method('addItem')
-      ->with($this->equalTo($this->item));
-    /*
-    $this->cartLineRepositoryMockup->expects($this->once())
-      ->method('get');
-
-    $this->cartLineRepositoryMockup->expects($this->any())
-      ->method('save');
-      //->with($this->equalTo($this->cartMockup));
-    */
-
-    $this->ecommerceManager->addProductToCart($productID);
+    //$this->ecommerceManager->addProductToCart($productID);
+    $this->assertEquals(2 ,$this->ecommerceManager->getCartItems()->count());
   }
-
 }

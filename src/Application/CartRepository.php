@@ -9,6 +9,7 @@
 namespace malotor\shoppingcart\Application;
 
 use malotor\shoppingcart\Domain\Cart;
+use malotor\shoppingcart\Domain\Collection;
 
 class CartRepository {
   public function __construct($cartLineRepository) {
